@@ -5,10 +5,10 @@ name: PR (Full)
 on:
   pull_request:
     paths:
-      - "pnpm-lock.yaml"
-      - "integration/**"
-      - "packages/react-router-dev/**"
-      - "!**/*.md"
+      - pnpm-lock.yaml
+      - integration/**
+      - packages/react-router-dev/**
+      - '!**/*.md'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,28 +16,28 @@ concurrency:
 
 jobs:
   integration-firefox:
-    name: "👀 Integration Test"
+    name: 👀 Integration Test
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-integration.yml
     with:
-      os: "ubuntu-latest"
-      node_version: "[22]"
+      os: ubuntu-24.04
+      node_version: '[22]'
       browser: '["firefox"]'
 
   integration-msedge:
-    name: "👀 Integration Test"
+    name: 👀 Integration Test
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-integration.yml
     with:
-      os: "windows-latest"
-      node_version: "[22]"
+      os: windows-2025
+      node_version: '[22]'
       browser: '["msedge"]'
 
   integration-webkit:
-    name: "👀 Integration Test"
+    name: 👀 Integration Test
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-integration.yml
     with:
-      os: "macos-latest"
-      node_version: "[22]"
+      os: macos-15
+      node_version: '[22]'
       browser: '["webkit"]'

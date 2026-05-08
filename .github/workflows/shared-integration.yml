@@ -24,7 +24,7 @@ env:
 
 jobs:
   integration:
-    name: "${{ inputs.os }} / node@${{ matrix.node }} / ${{ matrix.browser }}"
+    name: ${{ inputs.os }} / node@${{ matrix.node }} / ${{ matrix.browser }}
     strategy:
       fail-fast: false
       matrix:
@@ -43,7 +43,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
+          cache: pnpm
 
       # TODO: Track and renable once this has been fixed: https://github.com/google/wireit/issues/1297
       # - uses: google/wireit@setup-github-actions-caching/v2
@@ -61,5 +61,5 @@ jobs:
         run: npx playwright install --with-deps ${{ matrix.browser }}
 
       - name: 👀 Run Integration Tests ${{ matrix.browser }}
-        run: "pnpm test:integration --project=${{ matrix.browser }}"
+        run: pnpm test:integration --project=${{ matrix.browser }}
         timeout-minutes: 40

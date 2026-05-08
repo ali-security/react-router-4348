@@ -10,47 +10,47 @@ on:
       - dev
       - release-*
     tags:
-      - "v0.0.0-nightly-*"
+      - v0.0.0-nightly-*
     paths-ignore:
-      - ".changeset/**"
-      - "decisions/**"
-      - "docs/**"
-      - "examples/**"
-      - "jest/**"
-      - "scripts/**"
-      - "tutorial/**"
-      - "contributors.yml"
-      - "**/*.md"
+      - .changeset/**
+      - decisions/**
+      - docs/**
+      - examples/**
+      - jest/**
+      - scripts/**
+      - tutorial/**
+      - contributors.yml
+      - '**/*.md'
 
 jobs:
   build:
-    name: "⚙️ Build"
+    name: ⚙️ Build
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-build.yml
 
   integration-ubuntu:
-    name: "👀 Integration Test"
+    name: 👀 Integration Test
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-integration.yml
     with:
-      os: "ubuntu-latest"
-      node_version: "[20, 22]"
+      os: ubuntu-24.04
+      node_version: '[20, 22]'
       browser: '["chromium", "firefox"]'
 
   integration-windows:
-    name: "👀 Integration Test"
+    name: 👀 Integration Test
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-integration.yml
     with:
-      os: "windows-latest"
-      node_version: "[20, 22]"
+      os: windows-2025
+      node_version: '[20, 22]'
       browser: '["msedge"]'
 
   integration-macos:
-    name: "👀 Integration Test"
+    name: 👀 Integration Test
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-integration.yml
     with:
-      os: "macos-latest"
-      node_version: "[20, 22]"
+      os: macos-15
+      node_version: '[20, 22]'
       browser: '["webkit"]'

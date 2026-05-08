@@ -5,15 +5,15 @@ name: PR (Base)
 on:
   pull_request:
     paths-ignore:
-      - ".changeset/**"
-      - "decisions/**"
-      - "docs/**"
-      - "examples/**"
-      - "jest/**"
-      - "scripts/**"
-      - "tutorial/**"
-      - "contributors.yml"
-      - "**/*.md"
+      - .changeset/**
+      - decisions/**
+      - docs/**
+      - examples/**
+      - jest/**
+      - scripts/**
+      - tutorial/**
+      - contributors.yml
+      - '**/*.md'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,15 +21,15 @@ concurrency:
 
 jobs:
   build:
-    name: "⚙️ Build"
+    name: ⚙️ Build
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-build.yml
 
   integration-chromium:
-    name: "👀 Integration Test"
+    name: 👀 Integration Test
     if: github.repository == 'remix-run/react-router'
     uses: ./.github/workflows/shared-integration.yml
     with:
-      os: "ubuntu-latest"
-      node_version: "[22]"
+      os: ubuntu-24.04
+      node_version: '[22]'
       browser: '["chromium"]'
