@@ -42,6 +42,7 @@ import {
   SingleFetchRedirectSymbol,
 } from "../dom/ssr/single-fetch";
 import type { MiddlewareEnabled } from "../types/future";
+import { throwIfPotentialCSRFAttack } from "../actions";
 
 export type RequestHandler = (
   request: Request,
@@ -436,6 +437,17 @@ async function handleDocumentRequest(
   criticalCss?: CriticalCss
 ) {
   try {
+    if (
+      request.method === "POST" &&
+      build.future.unstable_allowedActionOrigins
+    ) {
+      throwIfPotentialCSRFAttack(
+        request.headers,
+        Array.isArray(build.future.unstable_allowedActionOrigins)
+          ? build.future.unstable_allowedActionOrigins
+          : [],
+      );
+    }
     let response = await staticHandler.query(request, {
       requestContext: loadContext,
       unstable_respond: build.future.unstable_middleware

@@ -83,6 +83,7 @@ type ServerBundlesBuildManifest = BaseBuildManifest & {
 type ServerModuleFormat = "esm" | "cjs";
 
 interface FutureConfig {
+  unstable_allowedActionOrigins: boolean | string[];
   /**
    * Enable route middleware
    */
@@ -492,6 +493,8 @@ async function resolveConfig({
   }
 
   let future: FutureConfig = {
+    unstable_allowedActionOrigins:
+      reactRouterUserConfig.future?.unstable_allowedActionOrigins ?? false,
     unstable_middleware:
       reactRouterUserConfig.future?.unstable_middleware ?? false,
     unstable_optimizeDeps:

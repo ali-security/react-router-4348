@@ -66,6 +66,7 @@ import {
   mergeRefs,
   usePrefetchBehavior,
 } from "./ssr/components";
+import { escapeHtml } from "./ssr/markup";
 import {
   Router,
   mapRouteProperties,
@@ -1265,9 +1266,9 @@ export function ScrollRestoration({
       {...props}
       suppressHydrationWarning
       dangerouslySetInnerHTML={{
-        __html: `(${restoreScroll})(${JSON.stringify(
-          storageKey || SCROLL_RESTORATION_STORAGE_KEY
-        )}, ${JSON.stringify(ssrKey)})`,
+        __html: `(${restoreScroll})(${escapeHtml(
+          JSON.stringify(storageKey || SCROLL_RESTORATION_STORAGE_KEY)
+        )}, ${escapeHtml(JSON.stringify(ssrKey))})`,
       }}
     />
   );

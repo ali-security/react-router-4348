@@ -1,6 +1,6 @@
 import type { HydrationState } from "../router/router";
 import type { CriticalCss, FutureConfig } from "../dom/ssr/entry";
-import { escapeHtml } from "./markup";
+import { escapeHtml } from "../dom/ssr/markup";
 
 type ValidateShape<T, Shape> =
   // If it extends T

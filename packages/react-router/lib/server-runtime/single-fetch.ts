@@ -28,6 +28,7 @@ import { sanitizeError, sanitizeErrors } from "./errors";
 import { ServerMode } from "./mode";
 import { getDocumentHeaders } from "./headers";
 import type { ServerBuild } from "./build";
+import { throwIfPotentialCSRFAttack } from "../actions";
 
 // Add 304 for server side - that is not included in the client side logic
 // because the browser should fill those responses with the cached data
@@ -47,6 +48,15 @@ export async function singleFetchAction(
   handleError: (err: unknown) => void
 ): Promise<Response> {
   try {
+    if (build.future.unstable_allowedActionOrigins) {
+      throwIfPotentialCSRFAttack(
+        request.headers,
+        Array.isArray(build.future.unstable_allowedActionOrigins)
+          ? build.future.unstable_allowedActionOrigins
+          : [],
+      );
+    }
+
     let handlerRequest = new Request(handlerUrl, {
       method: request.method,
       body: request.body,

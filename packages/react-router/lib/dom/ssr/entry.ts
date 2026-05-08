@@ -42,6 +42,7 @@ export interface EntryContext extends FrameworkContextObject {
 }
 
 export interface FutureConfig {
+  unstable_allowedActionOrigins: boolean | string[];
   unstable_subResourceIntegrity: boolean;
   unstable_middleware: boolean;
 }
